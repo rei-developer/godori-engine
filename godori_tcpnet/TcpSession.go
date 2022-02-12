@@ -15,7 +15,7 @@ func (session *TcpSession) handleTcpRead(networkFunctor SessionNetworkFunctors) 
 	session.NetworkFunctor.OnConnect(session.Index, session.SeqIndex)
 
 	var startRecvPos int16
-	var result int
+	//var result int
 	recvBuff := make([]byte, MAX_RECEIVE_BUFFER_SIZE)
 
 	for {
@@ -31,7 +31,7 @@ func (session *TcpSession) handleTcpRead(networkFunctor SessionNetworkFunctors) 
 		}
 
 		readAbleByte := int16(startRecvPos) + int16(recvBytes)
-		startRecvPos, result := session.makePacket(readAbleByte, recvBuff)
+		_, result := session.makePacket(readAbleByte, recvBuff)
 		if result != NET_ERROR_NONE {
 			session.closeProcess()
 			return
