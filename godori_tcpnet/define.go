@@ -2,7 +2,7 @@ package godori_tcpnet
 
 const (
 	MAX_RECEIVE_BUFFER_SIZE = 8012
-	PACKET_HEADER_SIZE      = 5
+	PACKET_HEADER_SIZE      = 3
 	MAX_PACKET_SIZE         = 1024
 )
 

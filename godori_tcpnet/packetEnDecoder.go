@@ -4,11 +4,13 @@ package godori_tcpnet
 import (
 	"encoding/binary"
 	"errors"
+	"fmt"
 	"reflect"
 )
 
 func PacketTotalSize(data []byte) int16 {
 	totalsize := binary.LittleEndian.Uint16(data)
+	fmt.Println("TotalSize : ", totalsize)
 	return int16(totalsize)
 }
 
