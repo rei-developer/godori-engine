@@ -1,0 +1,20 @@
+{
+    "server" : {
+        "bind_address": "127.0.0.1",
+        "port": 50002,
+        "max_session_count": 10,
+        "max_packet_size": 100
+    },
+
+    "game": {
+        "maps": {
+            "max_map_count": 257,
+            "max_user_count": 50
+        }
+    },
+
+
+    "db" : {
+
+    }
+}

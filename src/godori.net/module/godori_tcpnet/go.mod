@@ -1,4 +1,4 @@
-module godori_tcpnet
+module godori.net/module/godori_tcpnet
 
 go 1.17
 

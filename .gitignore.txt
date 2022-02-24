@@ -1,0 +1,10 @@
+.vscode/
+
+bin/
+
+config/
+
+pkg/
+
+src/__debug_bin.exe
+

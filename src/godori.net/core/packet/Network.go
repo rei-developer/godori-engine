@@ -1,17 +1,15 @@
-package main
+package packet
 
 import (
 	"flag"
 	"fmt"
 	"strconv"
-	"strings"
 
-	. "godori.net/tcpnet"
+	. "godori.net/module/godori_tcpnet"
 )
 
-func main() {
+func NetworkInit() {
 	NetLibInitLog(LOG_LV_DEBUG, nil)
-
 	netConfigClient := parseAppConfig()
 	netConfigClient.WriteNetworkConfig(true)
 
@@ -26,6 +24,8 @@ func main() {
 
 	NetLibStartNetwork(&netConfigClient, networkFunctors)
 }
+
+//--------------------------------------------------------
 
 func parseAppConfig() NetworkConfig {
 	client := NetworkConfig{}
@@ -42,18 +42,10 @@ func parseAppConfig() NetworkConfig {
 func OnConnect(sessionIndex int32, SeqIndex uint64) {
 	OutputLog(LOG_LV_INFO, "", 0, fmt.Sprintf("[OnConnect] sessionIndex: %d", sessionIndex))
 }
+
 func OnClose(id int32, pw uint64) {
 	fmt.Println(id)
 	fmt.Println(pw)
-}
-func OnReceive(sessionIndex int32, SeqIndex uint64, data []byte) bool {
-	packet := string(data[3:])
-	recv := PacketDecoder(packet)
-	fmt.Println("recv:", recv)
-	fmt.Println("part:", recv["part"])
-	fmt.Println("id:", recv["id"])
-	fmt.Println("pw:", recv["pw"])
-	return true
 }
 
 // End Packet Byte Code : 124
@@ -68,19 +60,4 @@ func PacketTotalSizeFunc(data []byte) int16 {
 	} else {
 		return 0
 	}
-}
-
-func PacketDecoder(packet string) map[string]string {
-	packetMap := make(map[string]string)
-	packet = strings.Replace(packet, "\\i", "", -1)
-	packet = strings.Replace(packet, "\\f", "", -1)
-	dataLine := strings.Split(packet, "|")
-	for _, str := range dataLine {
-		kvLine := strings.Split(str, ":")
-		if len(kvLine) < 2 {
-			break
-		}
-		packetMap[kvLine[0]] = kvLine[1]
-	}
-	return packetMap
 }
